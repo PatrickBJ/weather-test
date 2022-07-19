@@ -1,6 +1,13 @@
 import styled from "styled-components";
-import { cities } from "../reducers/citiesSlice";
-import { useSelector } from "react-redux";
+import {
+  searchCity,
+  selectedCity,
+  setSelectedCity,
+  cities,
+} from "reducers/citiesSlice";
+import { useSelector, useDispatch } from "react-redux";
+import { isCitySearched } from "helpers/functionHelper";
+import classNames from "classnames/bind";
 
 const Container = styled.section`
   display: grid;
@@ -20,7 +27,8 @@ const City = styled.div`
   transform: scale(1);
   transition-timing-function: ease;
   transition-duration: 0.6s;
-  :hover {
+  :hover,
+  &.selected {
     border: none;
     background-color: ${({ theme }) => theme.hoverBody};
     color: ${({ theme }) => theme.hoverText};
@@ -29,13 +37,27 @@ const City = styled.div`
 `;
 
 export default function SelectCity() {
-  const citiesArray: string[] = useSelector(cities);
+  const citiesArray = useSelector(cities);
+  const searchCityText = useSelector(searchCity);
+  const selectedCityText = useSelector(selectedCity);
+  const dispatch = useDispatch();
 
   return (
     <Container>
-      {citiesArray.map((city, index) => (
-        <City key={index}>{city}</City>
-      ))}
+      {citiesArray.map(
+        (item) =>
+          isCitySearched(item.city, searchCityText) && (
+            <City
+              key={item.id}
+              onClick={() => dispatch(setSelectedCity(item))}
+              className={classNames({
+                selected: selectedCityText?.id === item.id,
+              })}
+            >
+              {item.city}
+            </City>
+          )
+      )}
     </Container>
   );
 }

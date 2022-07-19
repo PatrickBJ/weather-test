@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { RootState } from "../store/configureStore";
+import { RootState } from "store/configureStore";
 
 interface SettingsType {
   modalOpen: boolean;

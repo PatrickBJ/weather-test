@@ -7,6 +7,7 @@ export const darkTheme = {
   text: c.White,
   hoverBody: c.White,
   hoverText: c.Blue,
+  filter: "invert(1)",
 };
 
 export const lightTheme = {
@@ -16,6 +17,7 @@ export const lightTheme = {
   text: c.Black,
   hoverBody: c.Black,
   hoverText: c.Blue,
+  filter: "none",
 };
 
 export const Theme = (isDarkTheme: boolean) =>

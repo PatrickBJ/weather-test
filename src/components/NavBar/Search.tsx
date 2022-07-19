@@ -1,0 +1,93 @@
+import { useState } from "react";
+import styled from "styled-components";
+import {
+  searchCity,
+  setSearchCity,
+  selectSearchCity,
+} from "reducers/citiesSlice";
+import { useSelector, useDispatch } from "react-redux";
+import classNames from "classnames/bind";
+import { ReactComponent as CloseIcon } from "assets/close-circle.svg";
+
+const SearchContainer = styled.div`
+  display: flex;
+  justify-self: end;
+  justify-items: center;
+  align-items: center;
+  gap: 10px;
+`;
+
+const SearchCity = styled.div`
+  position: relative;
+
+  & > svg {
+    position: absolute;
+    top: -1px;
+    right: 3px;
+  }
+`;
+
+const SearchInput = styled.input`
+  background-color: ${({ theme }) => theme.body};
+  color: ${({ theme }) => theme.text};
+  border-radius: 5px;
+  border: 1px solid ${({ theme }) => theme.border};
+  text-indent: 5px;
+  transition-timing-function: ease;
+  transition-duration: 0.1s;
+`;
+
+const CloseButton = styled(CloseIcon).attrs({ className: "clickable" })`
+  width: 14px;
+  filter: ${({ theme }) => theme.filter};
+  padding: 0;
+  margin: 0;
+`;
+
+const SearchText = styled.p``;
+
+export default function Search() {
+  const [searchMode, setSearchMode] = useState(true);
+  const dispatch = useDispatch();
+  const searchCityText = useSelector(searchCity);
+
+  const cleanText = () => {
+    dispatch(setSearchCity(""));
+    setSearchMode(false);
+  };
+
+  return (
+    <SearchContainer>
+      {searchMode && (
+        <SearchCity>
+          <SearchInput
+            autoFocus
+            placeholder="Search"
+            onChange={(e) => dispatch(setSearchCity(e.target.value))}
+            value={searchCityText}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                e.preventDefault();
+                dispatch(selectSearchCity());
+              }
+            }}
+            onBlur={() => {
+              if (!searchCityText) setSearchMode(false);
+            }}
+          ></SearchInput>
+          {Boolean(searchCityText) && (
+            <CloseButton onClick={() => cleanText()} />
+          )}
+        </SearchCity>
+      )}
+      {!searchMode && (
+        <SearchText
+          className={classNames("clickable")}
+          onClick={() => setSearchMode(true)}
+        >
+          Search
+        </SearchText>
+      )}
+    </SearchContainer>
+  );
+}

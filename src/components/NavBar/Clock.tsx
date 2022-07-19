@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import styled from "styled-components";
-import { clockFormat } from "../../helpers/timeHelper";
-import { timeFormat } from "../../reducers/settingsSlice";
+import { clockFormat } from "helpers/timeHelper";
+import { timeFormat } from "reducers/settingsSlice";
 import { useSelector } from "react-redux";
 
 const ClockComp = styled.div`

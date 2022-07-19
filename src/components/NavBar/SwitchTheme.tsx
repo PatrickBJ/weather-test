@@ -1,6 +1,7 @@
 import styled from "styled-components";
-import { darkTheme, toggleTheme } from "../../reducers/settingsSlice";
+import { darkTheme, toggleTheme } from "reducers/settingsSlice";
 import { useSelector, useDispatch } from "react-redux";
+import classNames from "classnames/bind";
 
 const SwitchThemeContainer = styled.div`
   display: flex;
@@ -19,6 +20,7 @@ export default function SwitchTheme() {
   return (
     <SwitchThemeContainer>
       <Text
+        className={classNames("clickable")}
         onClick={() => {
           dispatch(toggleTheme());
         }}

@@ -1,6 +1,8 @@
 import Clock from "./Clock";
 import SwitchTheme from "./SwitchTheme";
+import Search from "./Search";
 import styled from "styled-components";
+import classNames from "classnames/bind";
 
 const Header = styled.header`
   padding: 10px 15px;
@@ -14,11 +16,6 @@ const NavItems = styled.nav`
   gap: 10px;
 `;
 
-const Search = styled.div`
-  cursor: pointer;
-  align-self: center;
-`;
-
 const Settings = styled.div`
   cursor: pointer;
   align-self: center;
@@ -30,8 +27,8 @@ export default function NavBar() {
       <Clock />
       <NavItems>
         <SwitchTheme />
-        <Search>Search</Search>
-        <Settings>Settings</Settings>
+        <Search />
+        <Settings className={classNames("clickable")}>Settings</Settings>
       </NavItems>
     </Header>
   );
