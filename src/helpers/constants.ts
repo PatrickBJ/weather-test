@@ -1,1 +1,1 @@
-export const TESTE = '#000';
+export const TESTE = "#000";

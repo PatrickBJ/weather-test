@@ -2,10 +2,10 @@ import { createSlice } from "@reduxjs/toolkit";
 import { RootState } from "../store/configureStore";
 
 interface SettingsType {
-  modalOpen: boolean,
-  units: "Imperial" | "Metric" | "Standard",
-  timeFormat: "AM/PM" | "24H",
-  darkTheme: boolean
+  modalOpen: boolean;
+  units: "Imperial" | "Metric" | "Standard";
+  timeFormat: "AM/PM" | "24H";
+  darkTheme: boolean;
 }
 
 const initialState: SettingsType = {
@@ -42,6 +42,7 @@ export const units = (state: RootState) => state.settings.units;
 export const timeFormat = (state: RootState) => state.settings.timeFormat;
 export const darkTheme = (state: RootState) => state.settings.darkTheme;
 
-export const { openModal, closeModal, setUnits, setTimeFormat, toggleTheme } = settingsSlice.actions;
+export const { openModal, closeModal, setUnits, setTimeFormat, toggleTheme } =
+  settingsSlice.actions;
 
 export default settingsSlice.reducer;
