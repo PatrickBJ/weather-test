@@ -1,4 +1,5 @@
 import Clock from './Clock';
+import SwitchTheme from './SwitchTheme';
 import styled from 'styled-components';
 
 const Header = styled.header`
@@ -13,32 +14,23 @@ const NavItems = styled.nav`
     gap: 10px;
 `;
 
-const SwitchTheme = styled.div`
-    cursor:pointer;
-`;
-
 const Search = styled.div`
     cursor:pointer;
+    align-self: center;
 `;
 
 const Settings = styled.div`
     cursor:pointer;
+    align-self: center;
 `;
 
-interface props {
-    darkTheme: boolean;
-    // setDarkTheme: (theme: boolean) => boolean;
-}
-
-export default function NavBar({darkTheme}: props){
+export default function NavBar(){
 
     return(
         <Header>
-            <Clock></Clock>
+            <Clock/>
             <NavItems>
-                <SwitchTheme
-                    // onClick={()=>{setDarkTheme((theme: boolean) => !theme)}}
-                    >{darkTheme ? 'Dark':'Light'}</SwitchTheme>
+                <SwitchTheme/>
                 <Search>Search</Search>
                 <Settings>Settings</Settings>
             </NavItems>

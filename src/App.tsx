@@ -1,4 +1,3 @@
-import {useState} from 'react';
 import NavBar from './components/NavBar';
 import WeatherInfo from './components/WeatherInfo';
 import SelectCity from './components/SelectCity';
@@ -6,6 +5,8 @@ import { ThemeProvider } from 'styled-components'
 import GlobalCSS from './styles/global.css'
 import {Theme} from './styles/theme';
 import styled from 'styled-components';
+import { darkTheme } from './reducers/settingsSlice';
+import { useSelector } from "react-redux";
 
 const AppContainer = styled.div`
   display: grid;
@@ -23,13 +24,13 @@ const InfoContainer = styled.main`
 
 function App() {
 
-  const [darkTheme] = useState(true)
+  const isDarkTheme = useSelector(darkTheme);
 
   return (
-    <ThemeProvider theme={Theme(darkTheme)}>
+    <ThemeProvider theme={Theme(isDarkTheme)}>
       <GlobalCSS />
       <AppContainer>
-        <NavBar darkTheme={darkTheme}/>
+        <NavBar/>
         <InfoContainer>
           <WeatherInfo></WeatherInfo>
           <SelectCity></SelectCity> 

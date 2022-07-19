@@ -1,6 +1,8 @@
 import {useState, useEffect} from 'react';
 import styled from 'styled-components';
 import {clockFormat} from '../../helpers/timeHelper';
+import { timeFormat } from '../../reducers/settingsSlice';
+import { useSelector } from "react-redux";
 
 const ClockComp = styled.div`
     font-size: 1rem;
@@ -9,6 +11,7 @@ const ClockComp = styled.div`
 const SECOND = 1000;
 
 export default function Clock(){
+    const timeFormatValue = useSelector(timeFormat);
     const [time, setTime] = useState<Date>(new Date());
     useEffect(()=>{
         setInterval(
@@ -17,6 +20,6 @@ export default function Clock(){
     )},[])
 
     return(
-        <ClockComp>{clockFormat(time,"AM/PM")}</ClockComp>
+        <ClockComp>{clockFormat(time, timeFormatValue)}</ClockComp>
     );
 }

@@ -1,4 +1,6 @@
 import styled from 'styled-components';
+import { cities } from '../reducers/citiesSlice';
+import { useSelector } from "react-redux";
 
 const Container = styled.section`
     display: grid;
@@ -26,17 +28,13 @@ const City = styled.div`
     }
 `
 
-const cities = [
-    "Orlando","Miami","Ft. Lauderdale","Tampa","Saint Peterbug","Kissimmee",
-    "Orlando","Miami","Ft. Lauderdale","Tampa","Saint Peterbug","Kissimmee",
-    "Orlando","Miami","Ft. Lauderdale","Tampa","Saint Peterbug","Kissimmee",
-]
-
 export default function SelectCity(){
+
+    const citiesArray: string[] = useSelector(cities);
 
     return(
         <Container>
-         {cities.map(
+         {citiesArray.map(
             (city, index)=>
             <City key={index}>{city}</City>
          )}
