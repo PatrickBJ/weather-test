@@ -16,10 +16,6 @@ const WeatherComplement = styled.section`
   flex-direction: column;
   justify-items: center;
   color: ${({ theme }) => theme.text};
-  & > p {
-    margin: 0;
-    padding: 0;
-  }
 `;
 
 export default function WeatherDay() {

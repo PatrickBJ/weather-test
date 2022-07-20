@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import SelectButton from "components/Buttons/SelectButton";
-import WeatherDay from "./WeatherDay";
+// import WeatherDay from "./WeatherDay";
+import WeatherWeek from "./WeatherWeek";
 import { useSelector } from "react-redux";
 import { selectedCity } from "reducers/citiesSlice";
 
@@ -13,7 +14,7 @@ const WeatherEmptyContainer = styled.section`
 `;
 
 const WeatherContainer = styled.section`
-  padding: 60px 15px;
+  padding: 20px 15px;
   display: grid;
   justify-content: center;
   justify-items: center;
@@ -46,7 +47,8 @@ export default function WeatherInfo() {
   return (
     <WeatherContainer>
       <City>{selectedCityObj.city}</City>
-      <WeatherDay />
+      {/* <WeatherDay /> */}
+      <WeatherWeek />
       <SelectButton
         selected={"Now"}
         setSelected={() => changeForecast()}

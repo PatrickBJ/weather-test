@@ -7,8 +7,6 @@ export default createGlobalStyle`
     font-family: 'Lato', sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    margin: 0;
-    padding: 0;
     box-sizing: border-box;
   }
 
@@ -36,5 +34,22 @@ export default createGlobalStyle`
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
+  }
+
+  p{
+    margin: 0;
+    padding: 0;
+  }
+
+  ::-webkit-scrollbar {
+    width: 7px;
+    height: 7px;
+    border-radius: 10px;
+    background-color: #F5F5F5;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: rgb(185, 185, 185);
   }
 `;

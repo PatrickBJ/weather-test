@@ -6,7 +6,6 @@ interface Props {
 }
 
 const WeatherIconContainer = styled.div`
-  grid-area: center;
   display: grid;
   align-self: flex-start;
   justify-items: center;
@@ -21,8 +20,6 @@ const WeatherIcon = styled(weatherIcon)`
 `;
 
 const WeatherText = styled.p`
-  margin: 0;
-  padding: 0;
   font-size: 1.3rem;
 `;
 
