@@ -32,9 +32,10 @@ const SearchInput = styled.input`
   color: ${({ theme }) => theme.text};
   border-radius: 5px;
   border: 1px solid ${({ theme }) => theme.border};
+  outline: none;
   text-indent: 5px;
+  transition: all 1s;
   transition-timing-function: ease;
-  transition-duration: 0.1s;
 `;
 
 const CloseButton = styled(CloseIcon).attrs({ className: "clickable" })`
@@ -47,13 +48,24 @@ const CloseButton = styled(CloseIcon).attrs({ className: "clickable" })`
 const SearchText = styled.p``;
 
 export default function Search() {
-  const [searchMode, setSearchMode] = useState(true);
+  const [searchMode, setSearchMode] = useState(false);
   const dispatch = useDispatch();
   const searchCityText = useSelector(searchCity);
 
-  const cleanText = () => {
+  const clearText = () => {
     dispatch(setSearchCity(""));
     setSearchMode(false);
+  };
+
+  const selectCity = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      dispatch(selectSearchCity());
+    }
+  };
+
+  const resetSearchMode = () => {
+    if (!searchCityText) setSearchMode(false);
   };
 
   return (
@@ -65,18 +77,11 @@ export default function Search() {
             placeholder="Search"
             onChange={(e) => dispatch(setSearchCity(e.target.value))}
             value={searchCityText}
-            onKeyDown={(e) => {
-              if (e.key === "Enter") {
-                e.preventDefault();
-                dispatch(selectSearchCity());
-              }
-            }}
-            onBlur={() => {
-              if (!searchCityText) setSearchMode(false);
-            }}
+            onKeyDown={(e) => selectCity(e)}
+            onBlur={() => resetSearchMode()}
           ></SearchInput>
           {Boolean(searchCityText) && (
-            <CloseButton onClick={() => cleanText()} />
+            <CloseButton onClick={() => clearText()} />
           )}
         </SearchCity>
       )}

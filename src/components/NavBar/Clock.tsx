@@ -6,6 +6,7 @@ import { useSelector } from "react-redux";
 
 const ClockComp = styled.div`
   font-size: 1rem;
+  font-weight: 600;
 `;
 
 const SECOND = 1000;

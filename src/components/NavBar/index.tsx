@@ -3,6 +3,8 @@ import SwitchTheme from "./SwitchTheme";
 import Search from "./Search";
 import styled from "styled-components";
 import classNames from "classnames/bind";
+import { useDispatch } from "react-redux";
+import { openModal } from "reducers/settingsSlice";
 
 const Header = styled.header`
   padding: 10px 15px;
@@ -22,13 +24,19 @@ const Settings = styled.div`
 `;
 
 export default function NavBar() {
+  const dispatch = useDispatch();
   return (
     <Header>
       <Clock />
       <NavItems>
         <SwitchTheme />
         <Search />
-        <Settings className={classNames("clickable")}>Settings</Settings>
+        <Settings
+          className={classNames("clickable")}
+          onClick={() => dispatch(openModal())}
+        >
+          Settings
+        </Settings>
       </NavItems>
     </Header>
   );

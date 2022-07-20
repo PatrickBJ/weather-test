@@ -1,17 +1,20 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { RootState } from "store/configureStore";
 
+export const Units = ["Imperial", "Metric", "Standard"];
+export const TimeFormats = ["AM/PM", "24h"];
+
 interface SettingsType {
   modalOpen: boolean;
-  units: "Imperial" | "Metric" | "Standard";
-  timeFormat: "AM/PM" | "24H";
+  units: typeof Units[number];
+  timeFormat: typeof TimeFormats[number];
   darkTheme: boolean;
 }
 
 const initialState: SettingsType = {
-  modalOpen: false,
-  units: "Imperial",
-  timeFormat: "24H",
+  modalOpen: true,
+  units: Units[0],
+  timeFormat: TimeFormats[1],
   darkTheme: true,
 };
 
@@ -25,14 +28,13 @@ const settingsSlice = createSlice({
     closeModal: (state) => {
       state.modalOpen = false;
     },
-    setUnits: (state, action) => {
-      state.units = action.payload;
-    },
-    setTimeFormat: (state, action) => {
-      state.timeFormat = action.payload;
-    },
     toggleTheme: (state) => {
       state.darkTheme = !state.darkTheme;
+    },
+    saveSettings: (state, action) => {
+      state.units = action.payload.unit;
+      state.timeFormat = action.payload.time;
+      state.modalOpen = false;
     },
   },
 });
@@ -42,7 +44,7 @@ export const units = (state: RootState) => state.settings.units;
 export const timeFormat = (state: RootState) => state.settings.timeFormat;
 export const darkTheme = (state: RootState) => state.settings.darkTheme;
 
-export const { openModal, closeModal, setUnits, setTimeFormat, toggleTheme } =
+export const { openModal, closeModal, saveSettings, toggleTheme } =
   settingsSlice.actions;
 
 export default settingsSlice.reducer;

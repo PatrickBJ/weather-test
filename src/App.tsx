@@ -4,8 +4,10 @@ import SelectCity from "./components/SelectCity";
 import styled, { ThemeProvider } from "styled-components";
 import GlobalCSS from "./styles/global.css";
 import { Theme } from "./styles/theme";
-import { darkTheme } from "./reducers/settingsSlice";
+import { darkTheme, modalOpen } from "./reducers/settingsSlice";
 import { useSelector } from "react-redux";
+import ModalSettings from "./components/modalSettings";
+import classNames from "classnames/bind";
 
 const AppContainer = styled.div`
   display: grid;
@@ -23,16 +25,18 @@ const InfoContainer = styled.main`
 
 function App() {
   const isDarkTheme = useSelector(darkTheme);
+  const isModalOpen = useSelector(modalOpen);
 
   return (
     <ThemeProvider theme={Theme(isDarkTheme)}>
       <GlobalCSS />
-      <AppContainer>
+      <AppContainer className={classNames({ appBlur: isModalOpen })}>
         <NavBar />
         <InfoContainer>
           <WeatherInfo></WeatherInfo>
           <SelectCity></SelectCity>
         </InfoContainer>
+        <ModalSettings />
       </AppContainer>
     </ThemeProvider>
   );

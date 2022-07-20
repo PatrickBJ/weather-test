@@ -48,7 +48,7 @@ const citiesSlice = createSlice({
     },
     selectSearchCity: (state) => {
       const findCity = state.cities.find(
-        ({ city }) => city === state.searchCity
+        ({ city }) => city.toLowerCase() === state.searchCity.toLowerCase()
       );
       state.selectedCity = findCity || null;
     },
