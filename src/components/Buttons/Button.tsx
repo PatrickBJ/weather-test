@@ -5,15 +5,17 @@ interface ButtonProps {
   children: string;
   onClick: () => void;
   selected?: boolean;
+  width?: number;
+  height?: number;
 }
 
-const ButtonContainer = styled.button`
+const ButtonContainer = styled.button<ButtonProps>`
   display: flex;
   justify-content: center;
   align-items: center;
   border-radius: 5px;
-  width: 100px;
-  height: 20px;
+  width: ${({ width = 100 }) => width}px;
+  height: ${({ height = 20 }) => height}px;
   background-color: ${({ theme }) => theme.body};
   color: ${({ theme }) => theme.text};
   border: 1px solid ${({ theme }) => theme.border};
@@ -28,13 +30,23 @@ const ButtonContainer = styled.button`
     border: none;
     background-color: ${({ theme }) => theme.hoverBody};
     color: ${({ theme }) => theme.hoverText};
-    transform: scale(0.95);
   }
 `;
 
-export default function Button({ children, onClick, selected }: ButtonProps) {
+export default function Button({
+  children,
+  onClick,
+  selected,
+  width,
+  height,
+}: ButtonProps) {
   return (
-    <ButtonContainer onClick={onClick} className={classNames({ selected })}>
+    <ButtonContainer
+      onClick={onClick}
+      className={classNames({ selected })}
+      width={width}
+      height={height}
+    >
       {children}
     </ButtonContainer>
   );

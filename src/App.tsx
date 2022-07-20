@@ -6,7 +6,7 @@ import GlobalCSS from "./styles/global.css";
 import { Theme } from "./styles/theme";
 import { darkTheme, modalOpen } from "./reducers/settingsSlice";
 import { useSelector } from "react-redux";
-import ModalSettings from "./components/modalSettings";
+import ModalSettings from "./components/ModalSettings";
 import classNames from "classnames/bind";
 
 const AppContainer = styled.div`
@@ -33,7 +33,7 @@ function App() {
       <AppContainer className={classNames({ appBlur: isModalOpen })}>
         <NavBar />
         <InfoContainer>
-          <WeatherInfo></WeatherInfo>
+          <WeatherInfo />
           <SelectCity></SelectCity>
         </InfoContainer>
         <ModalSettings />

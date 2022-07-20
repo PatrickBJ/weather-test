@@ -12,7 +12,7 @@ interface SettingsType {
 }
 
 const initialState: SettingsType = {
-  modalOpen: true,
+  modalOpen: false,
   units: Units[0],
   timeFormat: TimeFormats[1],
   darkTheme: true,

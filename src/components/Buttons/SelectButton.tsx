@@ -5,7 +5,9 @@ interface ButtonProps {
   children: string;
   options: string[];
   selected: string;
-  setSelected: React.Dispatch<React.SetStateAction<string>>;
+  setSelected: React.Dispatch<React.SetStateAction<string>> | (() => void);
+  width?: number;
+  height?: number;
 }
 
 const SelectButtonContainer = styled.section`
@@ -30,6 +32,8 @@ export default function SelectButton({
   options,
   selected,
   setSelected,
+  width,
+  height,
 }: ButtonProps) {
   return (
     <SelectButtonContainer>
@@ -40,6 +44,8 @@ export default function SelectButton({
             key={index}
             onClick={() => setSelected(item)}
             selected={selected === item}
+            width={width}
+            height={height}
           >
             {item}
           </Button>
