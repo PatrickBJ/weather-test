@@ -2,6 +2,7 @@ import styled from "styled-components";
 import WeatherIconInfo from "./WeatherIconInfo";
 
 const WeatherWeekContainer = styled.section`
+  align-self: center;
   margin-top: 0.8rem;
   align-self: flex-start;
   display: grid;

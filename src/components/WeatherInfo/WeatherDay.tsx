@@ -2,7 +2,7 @@ import styled from "styled-components";
 import WeatherIconInfo from "./WeatherIconInfo";
 
 const WeatherDayContainer = styled.section`
-  align-self: flex-start;
+  align-self: center;
   display: grid;
   grid-template-rows: 1fr;
   grid-template-columns: 150px 1fr 150px;
@@ -21,7 +21,7 @@ const WeatherComplement = styled.section`
 export default function WeatherDay() {
   return (
     <WeatherDayContainer>
-      <WeatherIconInfo>Sunny</WeatherIconInfo>
+      <WeatherIconInfo customStyle="grid-area: center;">Sunny</WeatherIconInfo>
       <WeatherComplement>
         <p>Temp: 78°</p>
         <p>Feels Like: 80°</p>
