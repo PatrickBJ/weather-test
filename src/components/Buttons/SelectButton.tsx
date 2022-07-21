@@ -5,7 +5,9 @@ interface ButtonProps {
   children: string;
   options: string[];
   selected: string;
-  setSelected: React.Dispatch<React.SetStateAction<string>> | (() => void);
+  setSelected:
+    | React.Dispatch<React.SetStateAction<string>>
+    | React.Dispatch<string>;
   width?: number;
   height?: number;
 }

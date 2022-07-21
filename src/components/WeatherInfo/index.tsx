@@ -1,9 +1,8 @@
 import styled from "styled-components";
 import SelectButton from "components/Buttons/SelectButton";
-// import WeatherDay from "./WeatherDay";
-import WeatherWeek from "./WeatherWeek";
 import { useSelector } from "react-redux";
 import { selectedCity } from "reducers/citiesSlice";
+import { Outlet, useNavigate, useLocation } from "react-router-dom";
 
 const WeatherEmptyContainer = styled.section`
   padding: 10px 15px;
@@ -32,9 +31,12 @@ const City = styled.p`
 
 export default function WeatherInfo() {
   const selectedCityObj = useSelector(selectedCity);
+  const navigate = useNavigate();
+  const location = useLocation();
 
-  const changeForecast = () => {
-    console.log("change");
+  const changeForecast = (item: string) => {
+    if (item === "7 Days") navigate("/7days");
+    else navigate("/");
   };
 
   if (!selectedCityObj)
@@ -47,11 +49,10 @@ export default function WeatherInfo() {
   return (
     <WeatherContainer>
       <City>{selectedCityObj.city}</City>
-      {/* <WeatherDay /> */}
-      <WeatherWeek />
+      <Outlet />
       <SelectButton
-        selected={"Now"}
-        setSelected={() => changeForecast()}
+        selected={location?.pathname === "/7days" ? "7 Days" : "Now"}
+        setSelected={changeForecast}
         options={["Now", "7 Days"]}
         height={23}
       >

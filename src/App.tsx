@@ -8,6 +8,9 @@ import { darkTheme, modalOpen } from "./reducers/settingsSlice";
 import { useSelector } from "react-redux";
 import ModalSettings from "./components/ModalSettings";
 import classNames from "classnames/bind";
+import { Routes, Route } from "react-router-dom";
+import WeatherDay from "components/WeatherInfo/WeatherDay";
+import WeatherWeek from "components/WeatherInfo/WeatherWeek";
 
 const AppContainer = styled.div`
   display: grid;
@@ -33,7 +36,12 @@ function App() {
       <AppContainer className={classNames({ appBlur: isModalOpen })}>
         <NavBar />
         <InfoContainer>
-          <WeatherInfo />
+          <Routes>
+            <Route path="/" element={<WeatherInfo />}>
+              <Route path="/" element={<WeatherDay />}></Route>
+              <Route path="/7days" element={<WeatherWeek />}></Route>
+            </Route>
+          </Routes>
           <SelectCity></SelectCity>
         </InfoContainer>
         <ModalSettings />
