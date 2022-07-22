@@ -27,15 +27,11 @@ import { WeatherCity } from "reducers/citiesSlice";
 import * as c from "styles/constants";
 import { clockFormat } from "./timeHelper";
 
-export const getIcon = (
-  weatherCity: WeatherCity | null
-  // time: Date
-) => {
+export const getIcon = (weatherCity: WeatherCity | null, time: Date) => {
   if (!weatherCity) {
     return [Unknown, c.White];
   }
 
-  const time = new Date(2022, 6, 22, 0, 23);
   const iconId: string = weatherCity.weatherId;
   const iconCode: string = weatherCity.weatherIcon;
   const date: Date = new Date(weatherCity.day);

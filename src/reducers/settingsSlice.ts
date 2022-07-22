@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "store/configureStore";
 
 export const Units = ["Imperial", "Metric", "Standard"];
@@ -38,8 +38,8 @@ const settingsSlice = createSlice({
       state.timeFormat = action.payload.time;
       state.modalOpen = false;
     },
-    setTime: (state) => {
-      state.time = new Date().getTime();
+    setTime: (state, action: PayloadAction<number>) => {
+      state.time = action.payload;
     },
   },
 });

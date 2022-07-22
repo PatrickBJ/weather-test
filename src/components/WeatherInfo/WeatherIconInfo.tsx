@@ -1,6 +1,8 @@
 import styled from "styled-components";
 import { WeatherCity } from "reducers/citiesSlice";
 import { getIcon } from "helpers/iconWeatherHelper";
+import { useSelector } from "react-redux";
+import { time } from "reducers/settingsSlice";
 
 interface Props {
   children: string;
@@ -30,7 +32,8 @@ export default function WeatherIconInfo({
   customStyle,
   title,
 }: Props) {
-  const [WeatherIcon, IconColor] = getIcon(weatherCity);
+  const timeClock = new Date(useSelector(time));
+  const [WeatherIcon, IconColor] = getIcon(weatherCity, timeClock);
   return (
     <WeatherIconContainer customStyle={customStyle}>
       <WeatherIcon

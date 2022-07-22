@@ -6,3 +6,5 @@ export const sunsetMinPeriod = 5 * minute;
 
 // minutes
 export const sunsetMaxPeriod = 20 * minute;
+
+export const second = 1000;

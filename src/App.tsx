@@ -4,11 +4,13 @@ import SelectCity from "./components/SelectCity";
 import styled, { ThemeProvider } from "styled-components";
 import GlobalCSS from "./styles/global.css";
 import { Theme } from "./styles/theme";
-import { darkTheme, modalOpen } from "./reducers/settingsSlice";
-import { useSelector } from "react-redux";
+import { darkTheme, modalOpen, setTime } from "./reducers/settingsSlice";
+import { useDispatch, useSelector } from "react-redux";
 import ModalSettings from "./components/modalSettings";
 import classNames from "classnames/bind";
 import { Toaster } from "react-hot-toast";
+import { useEffect } from "react";
+import { second } from "helpers/constants";
 
 const AppContainer = styled.div`
   display: grid;
@@ -29,6 +31,11 @@ const InfoContainer = styled.main`
 function App() {
   const isDarkTheme = useSelector(darkTheme);
   const isModalOpen = useSelector(modalOpen);
+
+  const dispatch = useDispatch();
+  useEffect(() => {
+    setInterval(() => dispatch(setTime(new Date().getTime())), second * 30);
+  }, []);
 
   return (
     <ThemeProvider theme={Theme(isDarkTheme)}>
