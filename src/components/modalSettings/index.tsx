@@ -15,6 +15,9 @@ import {
 import Button from "components/Buttons/Button";
 import SelectButton from "../Buttons/SelectButton";
 import toast from "react-hot-toast";
+import { useLocation } from "react-router";
+import { selectedCity } from "reducers/citiesSlice";
+import { weatherApi } from "api/weather";
 
 const ModalContainer = styled(Modal)`
   position: absolute;
@@ -55,13 +58,16 @@ const Footer = styled.footer`
 export default function ModalSettings() {
   const dispatch = useDispatch();
   const isModalOpen = useSelector(modalOpen);
+  const cityItem = useSelector(selectedCity);
+  const location = useLocation();
 
   const [unit, setUnit] = useState(useSelector(units));
   const [time, setTime] = useState(useSelector(timeFormat));
 
-  const save = () => {
+  const save = async () => {
     dispatch(saveSettings({ unit, time }));
     toast.success("Settings saved");
+    weatherApi(cityItem, location, unit, dispatch);
   };
 
   return (

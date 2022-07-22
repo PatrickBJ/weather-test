@@ -1,34 +1,28 @@
 import { sunsetMinPeriod, sunsetMaxPeriod } from "./constants";
 
-export const isToday = (date: Date) => {
-  const today = new Date();
-
+export const isToday = (time: Date, date: Date) => {
   return (
-    today.getFullYear() === date.getFullYear() &&
-    today.getMonth() === date.getMonth() &&
-    today.getDay() === date.getDay()
+    time.getFullYear() === date.getFullYear() &&
+    time.getMonth() === date.getMonth() &&
+    time.getDay() === date.getDay()
   );
 };
 
-export const isSunset = (sunrise: Date, sundown: Date) => {
-  const now = new Date();
+export const isSunset = (time: Date, sunrise: Date, sundown: Date) => {
   return (
-    Math.abs(sunrise.getTime() - now.getTime()) <= sunsetMinPeriod ||
-    Math.abs(sundown.getTime() - now.getTime()) <= sunsetMinPeriod
+    Math.abs(sunrise.getTime() - time.getTime()) <= sunsetMinPeriod ||
+    Math.abs(sundown.getTime() - time.getTime()) <= sunsetMinPeriod
   );
 };
 
-export const isSunrise = (sunrise: Date) => {
-  const now = new Date();
-  return Math.abs(sunrise.getTime() - now.getTime()) <= sunsetMaxPeriod;
+export const isSunrise = (time: Date, sunrise: Date) => {
+  return Math.abs(sunrise.getTime() - time.getTime()) <= sunsetMaxPeriod;
 };
 
-export const isSunDown = (sundown: Date) => {
-  const now = new Date();
-  return Math.abs(sundown.getTime() - now.getTime()) <= sunsetMaxPeriod;
+export const isSunDown = (time: Date, sundown: Date) => {
+  return Math.abs(sundown.getTime() - time.getTime()) <= sunsetMaxPeriod;
 };
 
-export const isNight = (sundown: Date) => {
-  const now = new Date();
-  return Math.abs(sundown.getTime() - now.getTime()) > sunsetMaxPeriod;
+export const isNight = (time: Date, sundown: Date) => {
+  return Math.floor(time.getTime() - sundown.getTime()) > sunsetMaxPeriod;
 };

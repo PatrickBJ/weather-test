@@ -70,7 +70,7 @@ export default function Search() {
       e.preventDefault();
       dispatch(selectSearchCity());
       const cityItem = findCity(citiesArray, searchCityText);
-      if (cityItem) weatherApi(cityItem, location, unit, dispatch);
+      weatherApi(cityItem, location, unit, dispatch);
     }
   };
 

@@ -1,7 +1,8 @@
 export const DayOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
+const minute = 60000;
 // minutes
-export const sunsetMinPeriod = 5;
+export const sunsetMinPeriod = 5 * minute;
 
 // minutes
-export const sunsetMaxPeriod = 20;
+export const sunsetMaxPeriod = 20 * minute;

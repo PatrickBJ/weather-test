@@ -18,19 +18,21 @@ import {
 import { isOneDay } from "helpers/functionHelper";
 
 export const weatherApi = async (
-  cityItem: CityItem,
+  cityItem: CityItem | null | undefined,
   location: any,
   unit: string,
   dispatch: any
 ) => {
-  if (isOneDay(location)) {
-    dispatch(setLoading(true));
-    const weatherDay = await getDayWeather(cityItem, unit);
-    dispatch(setWeatherDay(weatherDay));
-  } else {
-    dispatch(setLoading(true));
-    const weatherWeek = await getWeekWeather(cityItem, unit);
-    dispatch(setWeatherWeek(weatherWeek));
+  if (cityItem) {
+    if (isOneDay(location)) {
+      dispatch(setLoading(true));
+      const weatherDay = await getDayWeather(cityItem, unit);
+      dispatch(setWeatherDay(weatherDay));
+    } else {
+      dispatch(setLoading(true));
+      const weatherWeek = await getWeekWeather(cityItem, unit);
+      dispatch(setWeatherWeek(weatherWeek));
+    }
   }
 };
 

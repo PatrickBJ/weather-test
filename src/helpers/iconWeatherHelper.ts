@@ -25,30 +25,32 @@ import {
 } from "./timeWeatherHelper";
 import { WeatherCity } from "reducers/citiesSlice";
 import * as c from "styles/constants";
+import { clockFormat } from "./timeHelper";
 
 export const getIcon = (
-  weatherCity: WeatherCity | null,
-  theme: { body: string }
+  weatherCity: WeatherCity | null
+  // time: Date
 ) => {
   if (!weatherCity) {
     return [Unknown, c.White];
   }
 
+  const time = new Date(2022, 6, 22, 0, 23);
   const iconId: string = weatherCity.weatherId;
   const iconCode: string = weatherCity.weatherIcon;
   const date: Date = new Date(weatherCity.day);
   const sunrise: Date = new Date(weatherCity.sunrise);
   const sunset: Date = new Date(weatherCity.sunset);
 
-  const night = isNight(sunset);
-  const generalColor = night ? c.Purple : theme.body;
+  const night = isNight(time, sunset);
+  const generalColor = night ? c.Purple : c.Blue;
 
   // clear sky
   if (iconCode === "01d" || iconCode === "01n") {
-    if (isToday(date)) {
-      if (isSunset(sunrise, sunset)) return [Sunset, c.Yellow];
-      if (isSunrise(sunrise)) return [SunsetUp, c.Yellow];
-      if (isSunDown(sunset)) return [SunsetDown, c.Yellow];
+    if (isToday(time, date)) {
+      if (isSunset(time, sunrise, sunset)) return [Sunset, c.Yellow];
+      if (isSunrise(time, sunrise)) return [SunsetUp, c.Yellow];
+      if (isSunDown(time, sunset)) return [SunsetDown, c.Yellow];
     }
     if (night) return [Night, generalColor];
     return [Sunny, c.Yellow];
@@ -109,4 +111,37 @@ export const getIcon = (
   if (iconCode === "50d" || iconCode === "50n") return [Fog, generalColor];
 
   return [Unknown, generalColor];
+};
+
+export const iconTitleWeek = (
+  weatherCity: WeatherCity | null,
+  timeFormat: string
+) => {
+  let title = "...";
+  if (weatherCity) {
+    const temp = `Temp: ${weatherCity?.temp}°`;
+    const feelsLike = `Feels Like:${weatherCity?.feelsLike}°`;
+    const humidity = `Humidity: ${weatherCity?.humidity}%`;
+    const sunrise = `Sunrise: ${clockFormat(weatherCity.sunrise, timeFormat)}`;
+    const sunset = `Sunset: ${clockFormat(weatherCity.sunset, timeFormat)}`;
+    if (weatherCity)
+      title =
+        temp +
+        "\n" +
+        feelsLike +
+        "\n" +
+        humidity +
+        "\n" +
+        sunrise +
+        "\n" +
+        sunset;
+  }
+  return title;
+};
+
+export const iconTitleDay = (weatherCity: WeatherCity | null) => {
+  let title = "...";
+  if (weatherCity)
+    title = `H: ${weatherCity?.tempMax}°/L: ${weatherCity?.tempMax}°`;
+  return title;
 };

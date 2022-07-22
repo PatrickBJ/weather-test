@@ -8,6 +8,8 @@ export default createGlobalStyle`
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     box-sizing: border-box;
+    width: 100%;
+    height: 100%;
   }
 
   input{
@@ -43,7 +45,9 @@ export default createGlobalStyle`
 
   .icon{
     fill: white;
-    width: 140px;
+    width: 20vw;
+    min-width: 100px;
+    max-width: 140px;
     height: auto;
     padding: 0;
     margin: 0;

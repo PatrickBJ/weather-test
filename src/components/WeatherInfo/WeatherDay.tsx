@@ -5,12 +5,13 @@ import { timeFormat } from "reducers/settingsSlice";
 import { useSelector } from "react-redux";
 import { clockFormat } from "helpers/timeHelper";
 import { showText, showTextNumber } from "helpers/functionHelper";
+import { iconTitleDay } from "helpers/iconWeatherHelper";
 
 const WeatherDayContainer = styled.section`
   align-self: center;
   display: grid;
   grid-template-rows: 1fr;
-  grid-template-columns: 150px 1fr 150px;
+  grid-template-columns: repeat(3, 1fr);
   grid-template-areas: "mockLeft center right";
 `;
 
@@ -21,6 +22,7 @@ const WeatherComplement = styled.section`
   flex-direction: column;
   justify-items: center;
   color: ${({ theme }) => theme.text};
+  font-size: min(max(2vw, 0.6rem), 1.3rem);
 `;
 
 export default function WeatherDay() {
@@ -30,7 +32,11 @@ export default function WeatherDay() {
 
   return (
     <WeatherDayContainer>
-      <WeatherIconInfo weatherCity={weather} customStyle="grid-area: center;">
+      <WeatherIconInfo
+        weatherCity={weather}
+        title={iconTitleDay(weather)}
+        customStyle="grid-area: center;"
+      >
         {showText(weather?.weather, isLoading)}
       </WeatherIconInfo>
       <WeatherComplement>

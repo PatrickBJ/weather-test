@@ -1,14 +1,12 @@
 import styled from "styled-components";
 import { WeatherCity } from "reducers/citiesSlice";
 import { getIcon } from "helpers/iconWeatherHelper";
-import { Theme } from "styles/theme";
-import { darkTheme } from "reducers/settingsSlice";
-import { useSelector } from "react-redux";
 
 interface Props {
   children: string;
   weatherCity: WeatherCity | null;
   customStyle?: string;
+  title: string;
 }
 
 interface StyleProp {
@@ -23,19 +21,23 @@ const WeatherIconContainer = styled.div<StyleProp>`
 `;
 
 const WeatherText = styled.p`
-  font-size: 1.3rem;
+  font-size: min(max(3vw, 1rem), 1.5rem);
 `;
 
 export default function WeatherIconInfo({
   children,
   weatherCity,
   customStyle,
+  title,
 }: Props) {
-  const isDarkTheme = useSelector(darkTheme);
-  const [WeatherIcon, IconColor] = getIcon(weatherCity, Theme(isDarkTheme));
+  const [WeatherIcon, IconColor] = getIcon(weatherCity);
   return (
     <WeatherIconContainer customStyle={customStyle}>
-      <WeatherIcon className="icon" style={{ fill: String(IconColor) }} />
+      <WeatherIcon
+        className="icon"
+        style={{ fill: String(IconColor) }}
+        title={title}
+      />
       <WeatherText>{children}</WeatherText>
     </WeatherIconContainer>
   );

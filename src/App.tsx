@@ -17,6 +17,8 @@ const AppContainer = styled.div`
   height: 100vh;
   background-color: ${({ theme }) => theme.body};
   color: ${({ theme }) => theme.text};
+  min-width: 300px;
+  min-height: 500px;
 `;
 
 const InfoContainer = styled.main`

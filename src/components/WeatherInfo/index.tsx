@@ -36,7 +36,7 @@ const City = styled.p`
 `;
 
 export default function WeatherInfo() {
-  const selectedCityObj = useSelector(selectedCity);
+  const selectedCityItem = useSelector(selectedCity);
   const navigate = useNavigate();
   const location = useLocation();
   const unit = useSelector(units);
@@ -46,21 +46,14 @@ export default function WeatherInfo() {
   const changeForecast = async (item: string) => {
     if (item === "7 Days" && isOneDay(location)) {
       navigate("/7days");
-      if (selectedCityObj)
-        await weatherApi(
-          selectedCityObj,
-          { pathname: "/7days" },
-          unit,
-          dispatch
-        );
+      weatherApi(selectedCityItem, { pathname: "/7days" }, unit, dispatch);
     } else if (item !== "7 Days" && !isOneDay(location)) {
       navigate("/");
-      if (selectedCityObj)
-        await weatherApi(selectedCityObj, { pathname: "/" }, unit, dispatch);
+      weatherApi(selectedCityItem, { pathname: "/" }, unit, dispatch);
     }
   };
 
-  if (!selectedCityObj)
+  if (!selectedCityItem)
     return (
       <WeatherEmptyContainer>
         Pick a day to see the full forecast
@@ -69,7 +62,7 @@ export default function WeatherInfo() {
 
   return (
     <WeatherContainer>
-      <City>{isLoading ? "..." : selectedCityObj.city}</City>
+      <City>{isLoading ? "..." : selectedCityItem.city}</City>
       <Routes>
         <Route path="*" element={<WeatherDay />}></Route>
         <Route path="/7days" element={<WeatherWeek />}></Route>
