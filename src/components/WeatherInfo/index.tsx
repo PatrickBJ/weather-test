@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import SelectButton from "components/Buttons/SelectButton";
 import { useDispatch, useSelector } from "react-redux";
-import { selectedCity } from "reducers/citiesSlice";
+import { selectedCity, loading } from "reducers/citiesSlice";
 import { Routes, Route, useNavigate, useLocation } from "react-router-dom";
 import WeatherDay from "components/WeatherInfo/WeatherDay";
 import WeatherWeek from "components/WeatherInfo/WeatherWeek";
@@ -40,6 +40,7 @@ export default function WeatherInfo() {
   const navigate = useNavigate();
   const location = useLocation();
   const unit = useSelector(units);
+  const isLoading = useSelector(loading);
   const dispatch = useDispatch();
 
   const changeForecast = async (item: string) => {
@@ -68,7 +69,7 @@ export default function WeatherInfo() {
 
   return (
     <WeatherContainer>
-      <City>{selectedCityObj.city}</City>
+      <City>{isLoading ? "..." : selectedCityObj.city}</City>
       <Routes>
         <Route path="*" element={<WeatherDay />}></Route>
         <Route path="/7days" element={<WeatherWeek />}></Route>

@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import WeatherIconInfo from "./WeatherIconInfo";
 import { useSelector } from "react-redux";
-import { weatherWeek } from "reducers/citiesSlice";
+import { loading, weatherWeek } from "reducers/citiesSlice";
 import { showText, showTextNumber } from "helpers/functionHelper";
 
 const WeatherWeekContainer = styled.section`
@@ -31,17 +31,18 @@ const Temp = styled.p`
 
 export default function WeatherWeek() {
   const weather = useSelector(weatherWeek);
+  const isLoading = useSelector(loading);
   return (
     <WeatherWeekContainer>
       {weather?.map((dayOfWeek) => (
         <WeatherDayWeek key={dayOfWeek.day}>
-          <Day>{showText(dayOfWeek.dayOfWeek)}</Day>
+          <Day>{showText(dayOfWeek.dayOfWeek, isLoading)}</Day>
           <WeatherIconInfo weatherCity={dayOfWeek}>
-            {showText(dayOfWeek.weather)}
+            {showText(dayOfWeek.weather, isLoading)}
           </WeatherIconInfo>
           <Temp>
-            H: {showTextNumber(dayOfWeek.tempMin)}°/L:{" "}
-            {showTextNumber(dayOfWeek.tempMax)}°
+            H: {showTextNumber(dayOfWeek.tempMin, isLoading)}°/L:{" "}
+            {showTextNumber(dayOfWeek.tempMax, isLoading)}°
           </Temp>
         </WeatherDayWeek>
       ))}

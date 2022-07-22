@@ -4,15 +4,15 @@ export const isCitySearched = (city: string, searchCity: string) => {
   return city.toLowerCase().includes(searchCity.toLowerCase());
 };
 
-export const showText = (item: unknown) => {
+export const showText = (item: unknown, loading: boolean) => {
   let text = "...";
-  if (item) text = String(item);
+  if (item && !loading) text = String(item);
   return text;
 };
 
-export const showTextNumber = (item: unknown) => {
+export const showTextNumber = (item: unknown, loading: boolean) => {
   let text = "...";
-  if (item) text = Number(item).toFixed();
+  if (item && !loading) text = Number(item).toFixed();
   return text;
 };
 

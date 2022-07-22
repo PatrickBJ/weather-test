@@ -31,33 +31,35 @@ interface CitiesType {
   cities: Array<CityItem>;
   weatherDay: WeatherCity | null;
   weatherWeek: Array<WeatherCity> | null;
+  loading: boolean;
 }
 
 const initialState: CitiesType = {
   selectedCity: null,
   searchCity: "",
   cities: [
-    { id: 1, city: "Orlando", lat: 28.4159, lon: -81.2988 },
-    { id: 2, city: "Miami", lat: 33.44, lon: -94.04 },
-    { id: 3, city: "London", lat: 33.44, lon: -94.04 },
-    { id: 4, city: "Tampa", lat: 33.44, lon: -94.04 },
-    { id: 5, city: "Madrid", lat: 33.44, lon: -94.04 },
-    { id: 6, city: "Kissimmee", lat: 33.44, lon: -94.04 },
-    { id: 7, city: "Jacaraipe", lat: 33.44, lon: -94.04 },
-    { id: 8, city: "Santa Maria de Jetiba", lat: 33.44, lon: -94.04 },
-    { id: 9, city: "Rio de Janeiro", lat: 33.44, lon: -94.04 },
-    { id: 10, city: "Tokio", lat: 33.44, lon: -94.04 },
-    { id: 11, city: "Sydney", lat: 33.44, lon: -94.04 },
-    { id: 12, city: "California", lat: 33.44, lon: -94.04 },
-    { id: 13, city: "Viena", lat: 33.44, lon: -94.04 },
-    { id: 14, city: "Vaticano", lat: 33.44, lon: -94.04 },
-    { id: 15, city: "Genebra", lat: 33.44, lon: -94.04 },
-    { id: 16, city: "Cairo", lat: 33.44, lon: -94.04 },
-    { id: 17, city: "Toronto", lat: 33.44, lon: -94.04 },
-    { id: 18, city: "Pretoria", lat: 33.44, lon: -94.04 },
+    { id: 1, city: "Orlando", lat: 28.538336, lon: -81.379234 },
+    { id: 2, city: "Miami", lat: 25.77427, lon: 80.19366 },
+    { id: 3, city: "London", lat: 51.509865, lon: -0.118092 },
+    { id: 4, city: "Tampa", lat: 27.94752, lon: -82.45843 },
+    { id: 5, city: "Madrid", lat: 40.4165, lon: -3.70256 },
+    { id: 6, city: "Kissimmee", lat: 28.291956, lon: -81.40757 },
+    { id: 7, city: "Jacaraipe", lat: -20.129103, lon: -40.208027 },
+    { id: 8, city: "Santa Maria de Jetiba", lat: -20.0263, lon: -40.7409 },
+    { id: 9, city: "Rio de Janeiro", lat: -22.908333, lon: -43.196388 },
+    { id: 10, city: "Tokio", lat: 35.652832, lon: 139.839478 },
+    { id: 11, city: "Sydney", lat: -33.865143, lon: 151.208755 },
+    { id: 12, city: "California", lat: 36.778259, lon: -119.417931 },
+    { id: 13, city: "Viena", lat: 48.210033, lon: 16.363449 },
+    { id: 14, city: "Vaticano", lat: 41.9029, lon: 12.4538 },
+    { id: 15, city: "Genebra", lat: 46.204391, lon: 6.143158 },
+    { id: 16, city: "Cairo", lat: 30.033333, lon: 31.233334 },
+    { id: 17, city: "Toronto", lat: 43.65107, lon: -79.347015 },
+    { id: 18, city: "Pretoria", lat: -25.73134, lon: 28.21837 },
   ],
   weatherDay: null,
   weatherWeek: null,
+  loading: false,
 };
 
 const citiesSlice = createSlice({
@@ -77,11 +79,19 @@ const citiesSlice = createSlice({
     setCities: (state, action: PayloadAction<Array<CityItem>>) => {
       state.cities = action.payload;
     },
-    setWeatherDay: (state, action: PayloadAction<WeatherCity>) => {
+    setWeatherDay: (state, action: PayloadAction<WeatherCity | null>) => {
       state.weatherDay = action.payload;
+      state.loading = false;
     },
-    setWeatherWeek: (state, action: PayloadAction<Array<WeatherCity>>) => {
+    setWeatherWeek: (
+      state,
+      action: PayloadAction<Array<WeatherCity> | null>
+    ) => {
       state.weatherWeek = action.payload;
+      state.loading = false;
+    },
+    setLoading: (state, action: PayloadAction<boolean>) => {
+      state.loading = action.payload;
     },
   },
 });
@@ -91,6 +101,7 @@ export const searchCity = (state: RootState) => state.cities.searchCity;
 export const cities = (state: RootState) => state.cities.cities;
 export const weatherDay = (state: RootState) => state.cities.weatherDay;
 export const weatherWeek = (state: RootState) => state.cities.weatherWeek;
+export const loading = (state: RootState) => state.cities.loading;
 
 export const {
   setSelectedCity,
@@ -99,6 +110,7 @@ export const {
   selectSearchCity,
   setWeatherDay,
   setWeatherWeek,
+  setLoading,
 } = citiesSlice.actions;
 
 export default citiesSlice.reducer;

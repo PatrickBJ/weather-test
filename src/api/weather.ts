@@ -4,6 +4,7 @@ import toast from "react-hot-toast";
 import axios from "axios";
 import {
   CityItem,
+  setLoading,
   setWeatherDay,
   setWeatherWeek,
   WeatherCity,
@@ -23,19 +24,22 @@ export const weatherApi = async (
   dispatch: any
 ) => {
   if (isOneDay(location)) {
+    dispatch(setLoading(true));
     const weatherDay = await getDayWeather(cityItem, unit);
-    if (weatherDay) dispatch(setWeatherDay(weatherDay));
+    dispatch(setWeatherDay(weatherDay));
   } else {
+    dispatch(setLoading(true));
     const weatherWeek = await getWeekWeather(cityItem, unit);
-    if (weatherWeek) dispatch(setWeatherWeek(weatherWeek));
+    dispatch(setWeatherWeek(weatherWeek));
   }
 };
 
 export const getDayWeather = async (cityItem: CityItem, unit: string) => {
   let weatherDay: WeatherCity | null = null;
-  const convertedCity = cityItem.city.replace(" ", "%20");
+  const lat = cityItem.lat;
+  const lon = cityItem.lon;
   const API_KEY = process.env.REACT_APP_API_KEY as string;
-  const url = `https://api.openweathermap.org/data/2.5/weather?q=${convertedCity}&appid=${API_KEY}&units=${unit}`;
+  const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=${unit}`;
 
   try {
     const { data } = await axios.get(url);

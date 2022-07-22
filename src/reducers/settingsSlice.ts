@@ -9,6 +9,7 @@ interface SettingsType {
   units: typeof Units[number];
   timeFormat: typeof TimeFormats[number];
   darkTheme: boolean;
+  time: number;
 }
 
 const initialState: SettingsType = {
@@ -16,6 +17,7 @@ const initialState: SettingsType = {
   units: Units[0],
   timeFormat: TimeFormats[1],
   darkTheme: true,
+  time: new Date().getTime(),
 };
 
 const settingsSlice = createSlice({
@@ -36,6 +38,9 @@ const settingsSlice = createSlice({
       state.timeFormat = action.payload.time;
       state.modalOpen = false;
     },
+    setTime: (state) => {
+      state.time = new Date().getTime();
+    },
   },
 });
 
@@ -43,8 +48,9 @@ export const modalOpen = (state: RootState) => state.settings.modalOpen;
 export const units = (state: RootState) => state.settings.units;
 export const timeFormat = (state: RootState) => state.settings.timeFormat;
 export const darkTheme = (state: RootState) => state.settings.darkTheme;
+export const time = (state: RootState) => state.settings.time;
 
-export const { openModal, closeModal, saveSettings, toggleTheme } =
+export const { openModal, closeModal, saveSettings, toggleTheme, setTime } =
   settingsSlice.actions;
 
 export default settingsSlice.reducer;
