@@ -1,5 +1,10 @@
 import styled from "styled-components";
 import WeatherIconInfo from "./WeatherIconInfo";
+import { weatherDay } from "reducers/citiesSlice";
+import { timeFormat } from "reducers/settingsSlice";
+import { useSelector } from "react-redux";
+import { clockFormat } from "helpers/timeHelper";
+import { showText, showTextNumber } from "helpers/functionHelper";
 
 const WeatherDayContainer = styled.section`
   align-self: center;
@@ -19,15 +24,30 @@ const WeatherComplement = styled.section`
 `;
 
 export default function WeatherDay() {
+  const weather = useSelector(weatherDay);
+  const timeFormatStr = useSelector(timeFormat);
+
   return (
     <WeatherDayContainer>
-      <WeatherIconInfo customStyle="grid-area: center;">Sunny</WeatherIconInfo>
+      <WeatherIconInfo weatherCity={weather} customStyle="grid-area: center;">
+        {showText(weather?.weather)}
+      </WeatherIconInfo>
       <WeatherComplement>
-        <p>Temp: 78°</p>
-        <p>Feels Like: 80°</p>
-        <p>Humidity: 100%</p>
-        <p>Sunrise: 6:48 AM</p>
-        <p>Sunset: 7:23 PM</p>
+        <p>Temp: {showTextNumber(weather?.temp)}°</p>
+        <p>Feels Like: {showTextNumber(weather?.feelsLike)}°</p>
+        <p>Humidity: {showTextNumber(weather?.humidity)}%</p>
+        <p>
+          Sunrise:{" "}
+          {showText(
+            weather?.sunrise && clockFormat(weather?.sunrise, timeFormatStr)
+          )}
+        </p>
+        <p>
+          Sunset:{" "}
+          {showText(
+            weather?.sunset && clockFormat(weather?.sunset, timeFormatStr)
+          )}
+        </p>
       </WeatherComplement>
     </WeatherDayContainer>
   );

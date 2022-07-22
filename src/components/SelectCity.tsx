@@ -1,13 +1,19 @@
 import styled from "styled-components";
 import {
+  cities,
+  CityItem,
   searchCity,
   selectedCity,
   setSelectedCity,
-  cities,
+  setWeatherDay,
+  setWeatherWeek,
 } from "reducers/citiesSlice";
+import { units } from "reducers/settingsSlice";
 import { useSelector, useDispatch } from "react-redux";
-import { isCitySearched } from "helpers/functionHelper";
+import { isCitySearched, isOneDay } from "helpers/functionHelper";
 import classNames from "classnames/bind";
+import { getDayWeather, getWeekWeather } from "api/weather";
+import { useLocation } from "react-router-dom";
 
 const Container = styled.section`
   display: grid;
@@ -40,7 +46,20 @@ export default function SelectCity() {
   const citiesArray = useSelector(cities);
   const searchCityText = useSelector(searchCity);
   const selectedCityText = useSelector(selectedCity);
+  const unit = useSelector(units);
   const dispatch = useDispatch();
+  const location = useLocation();
+
+  const selectCity = async (cityItem: CityItem) => {
+    dispatch(setSelectedCity(cityItem));
+    if (isOneDay(location)) {
+      const weatherDay = await getDayWeather(cityItem, unit);
+      if (weatherDay) dispatch(setWeatherDay(weatherDay));
+    } else {
+      const weatherWeek = await getWeekWeather(cityItem, unit);
+      if (weatherWeek) dispatch(setWeatherWeek(weatherWeek));
+    }
+  };
 
   return (
     <Container>
@@ -49,7 +68,7 @@ export default function SelectCity() {
           isCitySearched(item.city, searchCityText) && (
             <City
               key={item.id}
-              onClick={() => dispatch(setSelectedCity(item))}
+              onClick={() => selectCity(item)}
               className={classNames({
                 selected: selectedCityText?.id === item.id,
               })}

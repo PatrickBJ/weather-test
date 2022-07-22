@@ -14,6 +14,7 @@ import {
 } from "reducers/settingsSlice";
 import Button from "components/Buttons/Button";
 import SelectButton from "../Buttons/SelectButton";
+import toast from "react-hot-toast";
 
 const ModalContainer = styled(Modal)`
   position: absolute;
@@ -60,6 +61,7 @@ export default function ModalSettings() {
 
   const save = () => {
     dispatch(saveSettings({ unit, time }));
+    toast.success("Settings saved");
   };
 
   return (

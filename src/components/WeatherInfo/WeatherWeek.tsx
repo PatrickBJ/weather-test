@@ -1,5 +1,8 @@
 import styled from "styled-components";
 import WeatherIconInfo from "./WeatherIconInfo";
+import { useSelector } from "react-redux";
+import { weatherWeek } from "reducers/citiesSlice";
+import { showText, showTextNumber } from "helpers/functionHelper";
 
 const WeatherWeekContainer = styled.section`
   align-self: center;
@@ -27,22 +30,19 @@ const Temp = styled.p`
 `;
 
 export default function WeatherWeek() {
-  const week = [
-    { day: "Mon", forecast: "Sunny", temp: "H: 78°/L: 70°" },
-    { day: "Tue", forecast: "Sunny", temp: "H: 78°/L: 70°" },
-    { day: "Wed", forecast: "Sunny", temp: "H: 78°/L: 70°" },
-    { day: "Thu", forecast: "Sunny", temp: "H: 78°/L: 70°" },
-    { day: "Fri", forecast: "Sunny", temp: "H: 78°/L: 70°" },
-    { day: "Sat", forecast: "Sunny", temp: "H: 78°/L: 70°" },
-    { day: "Sun", forecast: "Sunny", temp: "H: 78°/L: 70°" },
-  ];
+  const weather = useSelector(weatherWeek);
   return (
     <WeatherWeekContainer>
-      {week.map((dayOfWeek) => (
+      {weather?.map((dayOfWeek) => (
         <WeatherDayWeek key={dayOfWeek.day}>
-          <Day>{dayOfWeek.day}</Day>
-          <WeatherIconInfo>{dayOfWeek.forecast}</WeatherIconInfo>
-          <Temp>{dayOfWeek.temp}</Temp>
+          <Day>{showText(dayOfWeek.dayOfWeek)}</Day>
+          <WeatherIconInfo weatherCity={dayOfWeek}>
+            {showText(dayOfWeek.weather)}
+          </WeatherIconInfo>
+          <Temp>
+            H: {showTextNumber(dayOfWeek.tempMin)}°/L:{" "}
+            {showTextNumber(dayOfWeek.tempMax)}°
+          </Temp>
         </WeatherDayWeek>
       ))}
     </WeatherWeekContainer>

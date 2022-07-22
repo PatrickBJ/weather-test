@@ -41,6 +41,14 @@ export default createGlobalStyle`
     padding: 0;
   }
 
+  .icon{
+    fill: white;
+    width: 140px;
+    height: auto;
+    padding: 0;
+    margin: 0;
+  }
+
   ::-webkit-scrollbar {
     width: 7px;
     height: 7px;
