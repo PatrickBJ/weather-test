@@ -1,13 +1,35 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import toast from "react-hot-toast";
 
 import axios from "axios";
-import { CityItem, WeatherCity } from "reducers/citiesSlice";
+import {
+  CityItem,
+  setWeatherDay,
+  setWeatherWeek,
+  WeatherCity,
+} from "reducers/citiesSlice";
 import {
   successApiResult,
   successApiWeekResult,
   dataToWeatherCity,
   dataToWeatherCityWeek,
 } from "./helper";
+import { isOneDay } from "helpers/functionHelper";
+
+export const weatherApi = async (
+  cityItem: CityItem,
+  location: any,
+  unit: string,
+  dispatch: any
+) => {
+  if (isOneDay(location)) {
+    const weatherDay = await getDayWeather(cityItem, unit);
+    if (weatherDay) dispatch(setWeatherDay(weatherDay));
+  } else {
+    const weatherWeek = await getWeekWeather(cityItem, unit);
+    if (weatherWeek) dispatch(setWeatherWeek(weatherWeek));
+  }
+};
 
 export const getDayWeather = async (cityItem: CityItem, unit: string) => {
   let weatherDay: WeatherCity | null = null;

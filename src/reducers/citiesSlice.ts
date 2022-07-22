@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "store/configureStore";
+import { findCity } from "helpers/functionHelper";
 
 export interface CityItem {
   id: number;
@@ -36,24 +37,24 @@ const initialState: CitiesType = {
   selectedCity: null,
   searchCity: "",
   cities: [
-    { id: 1, city: "Orlando", lat: 33.44, lon: -94.04 },
+    { id: 1, city: "Orlando", lat: 28.4159, lon: -81.2988 },
     { id: 2, city: "Miami", lat: 33.44, lon: -94.04 },
-    { id: 3, city: "Ft. Lauderdale", lat: 33.44, lon: -94.04 },
+    { id: 3, city: "London", lat: 33.44, lon: -94.04 },
     { id: 4, city: "Tampa", lat: 33.44, lon: -94.04 },
-    { id: 5, city: "Saint Peterbug", lat: 33.44, lon: -94.04 },
+    { id: 5, city: "Madrid", lat: 33.44, lon: -94.04 },
     { id: 6, city: "Kissimmee", lat: 33.44, lon: -94.04 },
-    { id: 7, city: "Orlando", lat: 33.44, lon: -94.04 },
-    { id: 8, city: "Miami", lat: 33.44, lon: -94.04 },
-    { id: 9, city: "Ft. Lauderdale", lat: 33.44, lon: -94.04 },
-    { id: 10, city: "Tampa", lat: 33.44, lon: -94.04 },
-    { id: 11, city: "Saint Peterbug", lat: 33.44, lon: -94.04 },
-    { id: 12, city: "Kissimmee", lat: 33.44, lon: -94.04 },
-    { id: 13, city: "Orlando", lat: 33.44, lon: -94.04 },
-    { id: 14, city: "Miami", lat: 33.44, lon: -94.04 },
-    { id: 15, city: "Ft. Lauderdale", lat: 33.44, lon: -94.04 },
-    { id: 16, city: "Tampa", lat: 33.44, lon: -94.04 },
-    { id: 17, city: "Saint Peterbug", lat: 33.44, lon: -94.04 },
-    { id: 18, city: "Kissimmee", lat: 33.44, lon: -94.04 },
+    { id: 7, city: "Jacaraipe", lat: 33.44, lon: -94.04 },
+    { id: 8, city: "Santa Maria de Jetiba", lat: 33.44, lon: -94.04 },
+    { id: 9, city: "Rio de Janeiro", lat: 33.44, lon: -94.04 },
+    { id: 10, city: "Tokio", lat: 33.44, lon: -94.04 },
+    { id: 11, city: "Sydney", lat: 33.44, lon: -94.04 },
+    { id: 12, city: "California", lat: 33.44, lon: -94.04 },
+    { id: 13, city: "Viena", lat: 33.44, lon: -94.04 },
+    { id: 14, city: "Vaticano", lat: 33.44, lon: -94.04 },
+    { id: 15, city: "Genebra", lat: 33.44, lon: -94.04 },
+    { id: 16, city: "Cairo", lat: 33.44, lon: -94.04 },
+    { id: 17, city: "Toronto", lat: 33.44, lon: -94.04 },
+    { id: 18, city: "Pretoria", lat: 33.44, lon: -94.04 },
   ],
   weatherDay: null,
   weatherWeek: null,
@@ -70,10 +71,8 @@ const citiesSlice = createSlice({
       state.searchCity = action.payload;
     },
     selectSearchCity: (state) => {
-      const findCity = state.cities.find(
-        ({ city }) => city.toLowerCase() === state.searchCity.toLowerCase()
-      );
-      state.selectedCity = findCity || null;
+      const city = findCity(state.cities, state.searchCity);
+      state.selectedCity = city || null;
     },
     setCities: (state, action: PayloadAction<Array<CityItem>>) => {
       state.cities = action.payload;

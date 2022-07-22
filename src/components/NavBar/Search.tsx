@@ -2,12 +2,17 @@ import { useState } from "react";
 import styled from "styled-components";
 import {
   searchCity,
+  cities,
   setSearchCity,
   selectSearchCity,
 } from "reducers/citiesSlice";
 import { useSelector, useDispatch } from "react-redux";
 import classNames from "classnames/bind";
 import { ReactComponent as CloseIcon } from "assets/close-circle.svg";
+import { units } from "reducers/settingsSlice";
+import { useLocation } from "react-router-dom";
+import { weatherApi } from "api/weather";
+import { findCity } from "helpers/functionHelper";
 
 const SearchContainer = styled.div`
   display: flex;
@@ -51,6 +56,9 @@ export default function Search() {
   const [searchMode, setSearchMode] = useState(false);
   const dispatch = useDispatch();
   const searchCityText = useSelector(searchCity);
+  const citiesArray = useSelector(cities);
+  const unit = useSelector(units);
+  const location = useLocation();
 
   const clearText = () => {
     dispatch(setSearchCity(""));
@@ -61,6 +69,8 @@ export default function Search() {
     if (e.key === "Enter") {
       e.preventDefault();
       dispatch(selectSearchCity());
+      const cityItem = findCity(citiesArray, searchCityText);
+      if (cityItem) weatherApi(cityItem, location, unit, dispatch);
     }
   };
 

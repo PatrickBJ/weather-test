@@ -6,7 +6,7 @@ import GlobalCSS from "./styles/global.css";
 import { Theme } from "./styles/theme";
 import { darkTheme, modalOpen } from "./reducers/settingsSlice";
 import { useSelector } from "react-redux";
-import ModalSettings from "./components/ModalSettings";
+import ModalSettings from "./components/modalSettings";
 import classNames from "classnames/bind";
 import { Toaster } from "react-hot-toast";
 
