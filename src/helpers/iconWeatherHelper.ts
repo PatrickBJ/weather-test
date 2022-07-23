@@ -38,7 +38,7 @@ export const getIcon = (weatherCity: WeatherCity | null, time: Date) => {
   const sunrise: Date = new Date(weatherCity.sunrise);
   const sunset: Date = new Date(weatherCity.sunset);
 
-  const night = isNight(time, sunset);
+  const night = isNight(time, sunrise, sunset);
   const generalColor = night ? c.Purple : c.Blue;
 
   // clear sky

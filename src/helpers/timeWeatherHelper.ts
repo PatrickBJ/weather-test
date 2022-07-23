@@ -10,19 +10,21 @@ export const isToday = (time: Date, date: Date) => {
 
 export const isSunset = (time: Date, sunrise: Date, sundown: Date) => {
   return (
-    Math.abs(sunrise.getTime() - time.getTime()) <= sunsetMinPeriod ||
-    Math.abs(sundown.getTime() - time.getTime()) <= sunsetMinPeriod
+    Math.abs(time.getTime() - sunrise.getTime()) <= sunsetMinPeriod ||
+    Math.abs(time.getTime() - sundown.getTime()) <= sunsetMinPeriod
   );
 };
 
 export const isSunrise = (time: Date, sunrise: Date) => {
-  return Math.abs(sunrise.getTime() - time.getTime()) <= sunsetMaxPeriod;
+  return Math.abs(time.getTime() - sunrise.getTime()) <= sunsetMaxPeriod;
 };
 
 export const isSunDown = (time: Date, sundown: Date) => {
-  return Math.abs(sundown.getTime() - time.getTime()) <= sunsetMaxPeriod;
+  return Math.abs(time.getTime() - sundown.getTime()) <= sunsetMaxPeriod;
 };
 
-export const isNight = (time: Date, sundown: Date) => {
-  return Math.floor(time.getTime() - sundown.getTime()) > sunsetMaxPeriod;
+export const isNight = (time: Date, sunrise: Date, sundown: Date) => {
+  return !(
+    time.getTime() > sunrise.getTime() && time.getTime() < sundown.getTime()
+  );
 };
