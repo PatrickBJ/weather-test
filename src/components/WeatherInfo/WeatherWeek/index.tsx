@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { loading, weatherWeek } from "reducers/citiesSlice";
 import { timeFormat } from "reducers/settingsSlice";
 import { showText, showTextNumber } from "helpers/functionHelper";
-import { iconTitleWeek } from "helpers/iconWeatherHelper";
+import { iconTitleWeek } from "helpers/iconWeatherTitleHelper";
 import {
   WeatherWeekContainer,
   WeatherDayWeek,

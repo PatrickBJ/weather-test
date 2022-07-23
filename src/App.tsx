@@ -10,17 +10,26 @@ import ModalSettings from "./components/ModalSettings";
 import classNames from "classnames/bind";
 import { Toaster } from "react-hot-toast";
 import { useEffect } from "react";
-import { second } from "helpers/constants";
+import { minute } from "helpers/constants";
 import { AppContainer, InfoContainer } from "./App.style";
+import { getTimeToNextMinute } from "helpers/timeHelper";
 
 export default function App() {
   const isDarkTheme = useSelector(darkTheme);
   const isModalOpen = useSelector(modalOpen);
 
   // Time change control
+  const timeToNextMinute = getTimeToNextMinute();
+
   const dispatch = useDispatch();
   useEffect(() => {
-    setInterval(() => dispatch(setTime(new Date().getTime())), second * 30);
+    const timeout = setTimeout(() => {
+      dispatch(setTime(new Date().getTime()));
+      setInterval(() => {
+        dispatch(setTime(new Date().getTime()));
+      }, minute);
+    }, timeToNextMinute);
+    return () => clearTimeout(timeout);
   }, []);
 
   return (

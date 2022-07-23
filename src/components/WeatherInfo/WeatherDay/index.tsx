@@ -4,7 +4,7 @@ import { timeFormat } from "reducers/settingsSlice";
 import { useSelector } from "react-redux";
 import { clockFormat } from "helpers/timeHelper";
 import { showText, showTextNumber } from "helpers/functionHelper";
-import { iconTitleDay } from "helpers/iconWeatherHelper";
+import { iconTitleDay } from "helpers/iconWeatherTitleHelper";
 import { WeatherDayContainer, WeatherComplement } from "./WeatherDay.style";
 
 export default function WeatherDay() {

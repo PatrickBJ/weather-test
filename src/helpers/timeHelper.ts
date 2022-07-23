@@ -1,4 +1,13 @@
-import { DayOfWeek } from "./constants";
+import { DayOfWeek, maxMillisecond, maxSecond } from "./constants";
+
+export const getTimeToNextMinute = () => {
+  const dateNow = new Date();
+  const seconds = dateNow.getSeconds();
+  const milliseconds = dateNow.getMilliseconds();
+  const diffSeconds = maxSecond - seconds;
+  const diffMilliseconds = maxMillisecond - milliseconds;
+  return diffSeconds * maxMillisecond - diffMilliseconds;
+};
 
 export const clockFormat = (time: Date | string, typeFormat: string) => {
   const timeDate = typeof time === "string" ? new Date(time) : time;
