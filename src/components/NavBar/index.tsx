@@ -1,4 +1,4 @@
-import Clock from "./Clock";
+import Clock from "../Clock";
 import SwitchTheme from "./SwitchTheme";
 import Search from "./Search";
 import styled from "styled-components";
@@ -25,6 +25,9 @@ const Settings = styled.div`
 
 export default function NavBar() {
   const dispatch = useDispatch();
+
+  const handleCloseModal = () => dispatch(openModal());
+
   return (
     <Header>
       <Clock />
@@ -33,7 +36,7 @@ export default function NavBar() {
         <Search />
         <Settings
           className={classNames("clickable")}
-          onClick={() => dispatch(openModal())}
+          onClick={handleCloseModal}
         >
           Settings
         </Settings>

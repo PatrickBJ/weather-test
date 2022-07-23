@@ -1,39 +1,16 @@
-import styled from "styled-components";
 import SelectButton from "components/Buttons/SelectButton";
 import { useDispatch, useSelector } from "react-redux";
 import { selectedCity, loading } from "reducers/citiesSlice";
-import { Routes, Route, useNavigate, useLocation } from "react-router-dom";
-import WeatherDay from "components/WeatherInfo/WeatherDay";
-import WeatherWeek from "components/WeatherInfo/WeatherWeek";
+import { useNavigate, useLocation } from "react-router-dom";
 import { isOneDay } from "helpers/functionHelper";
 import { weatherApi } from "api/weather";
 import { units } from "reducers/settingsSlice";
-
-const WeatherEmptyContainer = styled.section`
-  padding: 10px 15px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.5rem;
-`;
-
-const WeatherContainer = styled.section`
-  padding: 20px 15px;
-  display: grid;
-  justify-content: center;
-  justify-items: center;
-  grid-template-columns: 1fr;
-  grid-template-rows: 30px 1fr 50px;
-  align-items: center;
-  justify-content: space-between;
-  overflow-x: auto;
-`;
-
-const City = styled.p`
-  align-self: center;
-  text-align: center;
-  font-size: 1.3rem;
-`;
+import {
+  WeatherEmptyContainer,
+  WeatherContainer,
+  City,
+} from "./WeatherInfo.style";
+import WeatherInfoRoute from "./WeatherInfoRoute";
 
 export default function WeatherInfo() {
   const selectedCityItem = useSelector(selectedCity);
@@ -43,7 +20,7 @@ export default function WeatherInfo() {
   const isLoading = useSelector(loading);
   const dispatch = useDispatch();
 
-  const changeForecast = async (item: string) => {
+  const handleChangeForecast = async (item: string) => {
     if (item === "7 Days" && isOneDay(location)) {
       navigate("/7days");
       weatherApi(selectedCityItem, { pathname: "/7days" }, unit, dispatch);
@@ -60,17 +37,18 @@ export default function WeatherInfo() {
       </WeatherEmptyContainer>
     );
 
+  const cityName = isLoading ? "..." : selectedCityItem.city;
+  const selected = isOneDay(location) ? "Now" : "7 Days";
+  const options = ["Now", "7 Days"];
+
   return (
     <WeatherContainer>
-      <City>{isLoading ? "..." : selectedCityItem.city}</City>
-      <Routes>
-        <Route path="*" element={<WeatherDay />}></Route>
-        <Route path="/7days" element={<WeatherWeek />}></Route>
-      </Routes>
+      <City>{cityName}</City>
+      <WeatherInfoRoute />
       <SelectButton
-        selected={isOneDay(location) ? "Now" : "7 Days"}
-        setSelected={changeForecast}
-        options={["Now", "7 Days"]}
+        selected={selected}
+        setSelected={handleChangeForecast}
+        options={options}
         height={23}
       >
         Forecast

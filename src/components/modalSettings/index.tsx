@@ -1,7 +1,5 @@
 import { useState } from "react";
-import Clock from "../NavBar/Clock";
-import Modal from "react-modal";
-import styled from "styled-components";
+import Clock from "../Clock";
 import { useSelector, useDispatch } from "react-redux";
 import {
   modalOpen,
@@ -18,42 +16,7 @@ import toast from "react-hot-toast";
 import { useLocation } from "react-router";
 import { selectedCity } from "reducers/citiesSlice";
 import { weatherApi } from "api/weather";
-
-const ModalContainer = styled(Modal)`
-  position: absolute;
-  width: 400px;
-  height: 300px;
-  padding: 10px;
-  display: grid;
-  grid-template-rows: 1fr 2fr 2fr 3fr 1fr;
-  align-items: center;
-  background-color: ${({ theme }) => theme.body};
-  border-radius: 13px;
-  border: 1px solid ${({ theme }) => theme.border};
-  outline: none;
-  top: calc(50% - 150px);
-  left: calc(50% - 200px);
-  color: ${({ theme }) => theme.text};
-`;
-
-const Header = styled.header`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 18px;
-`;
-
-const Buttons = styled.section`
-  display: flex;
-  gap: 15px;
-  align-self: "center";
-  justify-content: center;
-`;
-
-const Footer = styled.footer`
-  justify-self: end;
-  margin-right: 10px;
-`;
+import { ModalContainer, Header, Buttons, Footer } from "./ModalSettings.style";
 
 export default function ModalSettings() {
   const dispatch = useDispatch();
@@ -64,7 +27,9 @@ export default function ModalSettings() {
   const [unit, setUnit] = useState(useSelector(units));
   const [time, setTime] = useState(useSelector(timeFormat));
 
-  const save = async () => {
+  const handleCloseClick = () => dispatch(closeModal());
+
+  const handleSaveClick = async () => {
     dispatch(saveSettings({ unit, time }));
     toast.success("Settings saved");
     weatherApi(cityItem, location, unit, dispatch);
@@ -92,8 +57,8 @@ export default function ModalSettings() {
         Time
       </SelectButton>
       <Buttons>
-        <Button onClick={() => dispatch(closeModal())}>Cancel</Button>
-        <Button onClick={() => save()}>Save</Button>
+        <Button onClick={handleCloseClick}>Cancel</Button>
+        <Button onClick={handleSaveClick}>Save</Button>
       </Buttons>
       <Footer>
         <Clock />

@@ -18,14 +18,14 @@ export default function SwitchTheme() {
   const isDarkTheme = useSelector(darkTheme);
   const mode = isDarkTheme ? "light" : "dark";
 
+  const handleClick = () => dispatch(toggleTheme());
+
   return (
     <SwitchThemeContainer>
       <Text
         className={classNames("clickable")}
         title={`Switch to ${mode} mode`}
-        onClick={() => {
-          dispatch(toggleTheme());
-        }}
+        onClick={handleClick}
       >
         {isDarkTheme ? "Dark" : "Light"}
       </Text>
