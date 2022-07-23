@@ -11,15 +11,17 @@ export const getTimeToNextMinute = () => {
 
 export const clockFormat = (time: Date | string, typeFormat: string) => {
   const timeDate = typeof time === "string" ? new Date(time) : time;
-  const hour = timeDate.getHours();
+  let hour = timeDate.getHours();
   let hourFormatted = hour.toString().padStart(2, "0");
   const minutes = timeDate.getMinutes().toString().padStart(2, "0");
   let suffix = "";
 
   if (typeFormat === "AM/PM") {
-    suffix = hour > 12 ? " PM" : " AM";
-    hourFormatted = (hour > 12 ? hour - 12 : hour).toString();
-  } else if (hour === 0) hourFormatted = "24";
+    suffix = hour >= 12 ? " PM" : " AM";
+    hour = hour % 12;
+    hour = hour || 12;
+    hourFormatted = hour.toString();
+  }
 
   return `${hourFormatted}:${minutes}` + suffix;
 };
