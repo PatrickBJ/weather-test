@@ -16,9 +16,9 @@ import toast from "react-hot-toast";
 import { useLocation } from "react-router";
 import { selectedCity } from "reducers/citiesSlice";
 import { weatherApi } from "api/weather";
-import { ModalContainer, Header, Buttons, Footer } from "./ModalSettings.style";
+import { ModalContainer, Header, Buttons, Footer } from "./Modal.style";
 
-export default function ModalSettings() {
+export default function Modal() {
   const dispatch = useDispatch();
   const isModalOpen = useSelector(modalOpen);
   const cityItem = useSelector(selectedCity);

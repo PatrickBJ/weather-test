@@ -6,7 +6,7 @@ import GlobalCSS from "./styles/global.css";
 import { Theme } from "./styles/theme";
 import { darkTheme, modalOpen, setTime } from "./reducers/settingsSlice";
 import { useDispatch, useSelector } from "react-redux";
-import ModalSettings from "./components/ModalSettings";
+import Modal from "./components/Modal";
 import classNames from "classnames/bind";
 import { Toaster } from "react-hot-toast";
 import { useEffect } from "react";
@@ -44,7 +44,7 @@ export default function App() {
           <WeatherInfo />
           <SelectCity></SelectCity>
         </InfoContainer>
-        <ModalSettings />
+        <Modal />
       </AppContainer>
       <Toaster position="top-center" reverseOrder={true} />
     </ThemeProvider>
