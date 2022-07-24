@@ -57,12 +57,13 @@ export default function SelectCity() {
   };
 
   return (
-    <Container>
+    <Container role="listbox">
       {citiesArray.map(
         (item) =>
           isCitySearched(item.city, searchCityText) && (
             <City
               key={item.id}
+              role="option"
               onClick={() => selectCity(item)}
               title={item.city}
               className={classNames({

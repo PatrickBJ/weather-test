@@ -58,7 +58,9 @@ export default function Search() {
             onKeyDown={(e) => handleSelectCity(e)}
             onBlur={handleResetSearchMode}
           ></SearchInput>
-          {Boolean(searchCityText) && <CloseButton onClick={handleClearText} />}
+          {Boolean(searchCityText) && (
+            <CloseButton data-testid="close" onClick={handleClearText} />
+          )}
         </SearchCity>
       )}
       {!searchMode && (
