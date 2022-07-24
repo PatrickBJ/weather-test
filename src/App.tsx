@@ -35,7 +35,10 @@ export default function App() {
   return (
     <ThemeProvider theme={Theme(isDarkTheme)}>
       <GlobalCSS />
-      <AppContainer className={classNames({ appBlur: isModalOpen })}>
+      <AppContainer
+        data-testid="app"
+        className={classNames({ appBlur: isModalOpen })}
+      >
         <NavBar />
         <InfoContainer>
           <WeatherInfo />

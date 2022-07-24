@@ -12,5 +12,9 @@ export default function Clock() {
   const timeFormatValue = useSelector(timeFormat);
   const timeClock = new Date(useSelector(time));
 
-  return <ClockComp>{clockFormat(timeClock, timeFormatValue)}</ClockComp>;
+  return (
+    <ClockComp data-testid="clock">
+      {clockFormat(timeClock, timeFormatValue)}
+    </ClockComp>
+  );
 }

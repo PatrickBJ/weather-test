@@ -37,6 +37,7 @@ export default function ModalSettings() {
 
   return (
     <ModalContainer
+      role="dialog"
       isOpen={isModalOpen}
       ariaHideApp={false}
       overlayClassName="overlay"
