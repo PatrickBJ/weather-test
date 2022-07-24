@@ -6,7 +6,7 @@ import {
   mockCityItem,
   mockedWeatherDayData,
   mockedWeatherWeekData,
-} from "./apiHelpers";
+} from "./helpers/apiHelpers";
 
 it("success one day api", async () => {
   mockApi(mockedWeatherDayData());

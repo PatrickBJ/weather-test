@@ -11,7 +11,7 @@ export const AppContainer = styled.div`
   min-height: 500px;
 `;
 
-export const InfoContainer = styled.main`
+export const InfoContainer = styled.div`
   display: grid;
   grid-template-rows: 1fr 200px;
 `;

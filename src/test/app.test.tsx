@@ -1,7 +1,7 @@
 import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { lightTheme, darkTheme } from "styles/theme";
-import { renderApp } from "./testHelpers";
+import { renderApp } from "./helpers/testHelpers";
 import { weatherApi } from "api/weather";
 
 it("default pick text", async () => {

@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const WeatherEmptyContainer = styled.section`
+export const WeatherEmptyContainer = styled.main`
   padding: 10px 15px;
   display: flex;
   align-items: center;
@@ -8,7 +8,7 @@ export const WeatherEmptyContainer = styled.section`
   font-size: 1.5rem;
 `;
 
-export const WeatherContainer = styled.section`
+export const WeatherContainer = styled.main`
   padding: 20px 15px;
   display: grid;
   justify-content: center;

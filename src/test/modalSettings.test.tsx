@@ -1,8 +1,8 @@
 import { screen } from "@testing-library/react";
 
 import { clockFormat } from "helpers/timeHelper";
-import "./matchMedia";
-import { renderApp } from "./testHelpers";
+import "./helpers/matchMedia";
+import { renderApp } from "./helpers/testHelpers";
 import { weatherApi } from "api/weather";
 
 it("open modal", async () => {
