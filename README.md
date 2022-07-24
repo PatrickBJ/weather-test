@@ -13,6 +13,7 @@ Weather forecast test with React
 - React-router-dom
 - React-hot-toast lib
 - Classnames lib
+- Created a .env file to store the API_KEY (REACT_APP_API_KEY)
 
 ## Extra functionalities
 
