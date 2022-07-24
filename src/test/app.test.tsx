@@ -23,3 +23,7 @@ it("change theme", async () => {
   expect(app).toHaveStyle(`background-color: ${backgroundColor}`);
   expect(app).toHaveStyle(`color: ${textColor}`);
 });
+
+// Testar Search
+// 		type contar quantos resultados tem
+// 		Enter... Selecionar uma e chamar api

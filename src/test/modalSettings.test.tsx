@@ -3,6 +3,7 @@ import { screen } from "@testing-library/react";
 import { clockFormat } from "helpers/timeHelper";
 import "./matchMedia";
 import { renderApp } from "./testHelpers";
+import { weatherApi } from "api/weather";
 
 it("open modal", async () => {
   const { user } = renderApp();
@@ -40,4 +41,21 @@ it("test change time format to AM/PM", async () => {
   expect(screen.getByTestId("clock").textContent).toBe(
     clockFormat(new Date(), "AM/PM")
   );
+});
+
+jest.mock("api/weather");
+
+it("test change unit", async () => {
+  const { user } = renderApp();
+
+  const buttonSettings = screen.getByText("Settings");
+  await user.click(buttonSettings);
+
+  const buttonUnit = screen.getByText("Metric", { selector: "button" });
+  await user.click(buttonUnit);
+
+  const buttonSave = screen.getByText("Save");
+  await user.click(buttonSave);
+
+  expect(weatherApi).toBeCalledTimes(1);
 });

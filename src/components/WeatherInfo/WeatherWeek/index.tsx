@@ -9,12 +9,25 @@ import {
   WeatherDayWeek,
   Day,
   Temp,
+  NotFound,
 } from "./WeatherWeek.style";
 
 export default function WeatherWeek() {
   const weather = useSelector(weatherWeek);
   const isLoading = useSelector(loading);
   const time = useSelector(timeFormat);
+
+  if (!weather)
+    return (
+      <NotFound>
+        {!weather && (
+          <WeatherIconInfo weatherCity={weather} title="...">
+            {"..."}
+          </WeatherIconInfo>
+        )}
+      </NotFound>
+    );
+
   return (
     <WeatherWeekContainer>
       {weather?.map((dayOfWeek) => (

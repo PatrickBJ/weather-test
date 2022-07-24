@@ -1,5 +1,14 @@
 import styled from "styled-components";
 
+export const NotFound = styled.section`
+  align-self: center;
+  margin-top: 0.8rem;
+  align-self: center;
+  display: flex;
+  grid-template-rows: 1fr;
+  grid-template-columns: 1fr;
+`;
+
 export const WeatherWeekContainer = styled.section`
   align-self: center;
   margin-top: 0.8rem;
